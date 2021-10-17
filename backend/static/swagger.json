@@ -1,0 +1,87 @@
+{
+    "openapi": "3.0.0",
+    "components": {
+        "distinctTag": {
+          "type": "object",
+          "properties": {
+            "platform": {
+              "type": "string",
+              "format": "string"
+            }
+          }
+        }
+      },
+    "info": {
+      "description": "API Documentation",
+      "version": "1.0.0",
+      "title": "Video Games Search Engine",
+      "contact": {
+        "email": "example@example.com"
+      },
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "servers": [
+      {
+        "url": "/"
+      }
+    ],
+    "tags": [
+      {
+        "name": "Video Games Request",
+        "description": "Example API for searching for books"
+      }
+    ],
+    "paths": {
+      "/api/getPlatformTags": {
+        "get": {
+          "tags": [
+            "Platform Request"
+          ],
+          "summary": "Returns possible platforms",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/distinctTag"
+              }
+            }
+          }
+        }
+     },
+      "/api/getGenreTags": {
+        "get": {
+          "tags": [
+            "Genre Request"
+          ],
+          "summary": "Returns possible genres",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/distinctTag"
+              }
+            }
+          }
+        }
+      },
+      "/api/getPublisherTags": {
+        "get": {
+          "tags": [
+            "Publisher Request"
+          ],
+          "summary": "Returns possible publishers",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/distinctTag"
+              }
+            }
+          }
+        }
+     }
+   }
+ }
