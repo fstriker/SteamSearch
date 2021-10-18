@@ -3,9 +3,11 @@ from flask import Flask
 from elasticsearch import Elasticsearch
 from flask.wrappers import Request
 from flask_swagger_ui import get_swaggerui_blueprint
+from flask_cors import CORS
 
 es_client = Elasticsearch("http://node-2.hska.io:9200")
 app = Flask(__name__)
+cors = CORS(app)
 
 SWAGGER_URL = '/swagger'
 API_URL = '/static/swagger.json'

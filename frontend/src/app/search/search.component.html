@@ -1,0 +1,65 @@
+<div id="searchcontent">
+  <div id="search">
+    <div id="welcomeBox">
+      <span style="color: green">Search </span
+      ><span style="color: red">for </span>
+      <span style="color: yellow">new </span>
+      <span style="color: rgb(58, 58, 255)">adventures</span>
+    </div>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Game Name</mat-label>
+      <input [formControl]="nameControl" matInput placeholder="Pac-Man" />
+    </mat-form-field>
+
+    <mat-form-field class="picker" appearance="fill">
+      <mat-label>Genre</mat-label>
+      <mat-select [formControl]="genreControl" multiple>
+        <mat-option *ngFor="let genre of genreList" [value]="genre">{{
+          genre
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="picker" appearance="fill">
+      <mat-label>Platform</mat-label>
+      <mat-select [formControl]="platformControl" multiple>
+        <mat-option *ngFor="let platform of platformList" [value]="platform">{{
+          platform
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="picker" appearance="fill">
+      <mat-label>Publisher</mat-label>
+      <mat-select [formControl]="publisherControl" multiple>
+        <mat-option
+          *ngFor="let publisher of publisherList"
+          [value]="publisher"
+          >{{ publisher }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="picker" appearance="fill">
+      <mat-label>Year</mat-label>
+      <mat-select [formControl]="yearControl" multiple>
+        <mat-option
+          *ngFor="let year of yearList"
+          [value]="year"
+          >{{ year }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+
+    <button
+      class="searchbutton"
+      mat-raised-button
+      (click)="search()"
+      color="primary"
+      [class.spinner]="loading"
+      [disabled]="loading"
+    >
+      Search
+    </button>
+  </div>
+</div>
