@@ -1,11 +1,10 @@
-from sys import platform
-from flask import Flask
+import sys
+from flask import Flask, request
 from elasticsearch import Elasticsearch
-from flask.wrappers import Request
 from flask_swagger_ui import get_swaggerui_blueprint
 from flask_cors import CORS
 
-es_client = Elasticsearch("http://node-2.hska.io:9200")
+es_client = Elasticsearch(["http://node-1.hska.io:9200/","http://node-2.hska.io:9200"])
 app = Flask(__name__)
 cors = CORS(app)
 
@@ -30,10 +29,10 @@ def get_field_distinct(field):
     }
     return query
 
-def buildQuery():
+def buildQuery(name):
     query = {
         "match":{
-            "Name": 'Mario Kart Wii'
+            "Name": name
         }
     }
     return query
@@ -61,19 +60,24 @@ def getPublisherTags():
     result = es_client.search(index="vgsales",aggs=dist_query,size=0)
     return result
 
+@app.route('/api/getYearTags', methods=['GET'])
+def getYearTags():
+    dist_query = get_field_distinct("Year")
+    result = es_client.search(index="vgsales",aggs=dist_query,size=0)
+    return result
+
 @app.route('/api/search', methods=['GET'])
 def getSearchRequest():
+    # print(request.headers, file=sys.stderr)
+    # print(request.args, file=sys.stderr)
     
-    # rank = Request.form['Rank']
-    # name = Request.form['Name']
-    # plfrm = Request.form['Platform']
-    # year = Request.form['Year']
-    # genre = Request.form['Genre']
-    # publisher = Request.form['Publisher']
-    
-    constructed_query = buildQuery()
-    result = es_client.search(index="vgsales",query=constructed_query)
-    return result
+    # name = request.args.get('name')
+    # if name == None:
+    #     name = ""
+        
+    # constructed_query = buildQuery(name)
+    # result = es_client.search(index="vgsales",query=constructed_query)
+    return request.args
 
 if __name__ == "__main__":
     app.run()
