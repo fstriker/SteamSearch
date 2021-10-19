@@ -82,6 +82,82 @@
             }
           }
         }
-     }
-   }
+     },
+     "/api/getYearTags": {
+      "get": {
+        "tags": [
+          "Year Request"
+        ],
+        "summary": "Returns possible years",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/distinctTag"
+              }
+            }
+          }  
+        }
+      },
+      "/api/search?Rank={Rank}&Name={Name}&Platform={Platform}&Year={Year}&Genre={Genre}&Publisher={Publisher}": {
+        "parameters": [
+          {
+            "name": "Rank",
+            "in": "path",
+            "required": false,
+            "description": "Rank of the game",
+            "type": "string"
+          },
+          {
+            "name": "Name",
+            "in": "path",
+            "required": false,
+            "description": "Name of game",
+            "type": "string"
+          },
+          {
+            "name": "Platform",
+            "in": "path",
+            "required": false,
+            "description": "Game platform",
+            "type": "string"
+          },
+          {
+            "name": "Year",
+            "in": "path",
+            "required": false,
+            "description": "Year of release",
+            "type": "date"
+          },
+          {
+            "name": "Genre",
+            "in": "path",
+            "required": false,
+            "description": "Game genre",
+            "type": "string"
+          },
+          {
+            "name": "Publisher",
+            "in": "path",
+            "required": false,
+            "description": "Publisher of the game",
+            "type": "string"
+          }
+        ],
+        "get": {
+          "tags": [
+            "Search"
+          ],
+          "summary": "Search for video games",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/components/schemas/distinctTag"
+                }
+              }
+            }  
+          }
+        }
+  }
  }
