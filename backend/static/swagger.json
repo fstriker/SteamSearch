@@ -158,6 +158,38 @@
               }
             }  
           }
-        }
+        },
+        "/api/search?Rank={Rank}&Name={Name}": {
+          "parameters": [
+            {
+              "name": "Rank",
+              "in": "path",
+              "required": false,
+              "description": "Rank of the game",
+              "type": "string"
+            },
+            {
+              "name": "Name",
+              "in": "path",
+              "required": false,
+              "description": "Name of game",
+              "type": "string"
+            }
+          ],
+          "get": {
+            "tags": [
+              "Search"
+            ],
+            "summary": "Search for video games",
+            "responses": {
+              "200": {
+                "description": "OK",
+                "schema": {
+                  "$ref": "#/components/schemas/distinctTag"
+                  }
+                }
+              }  
+            }
+          }
   }
  }

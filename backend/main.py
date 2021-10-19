@@ -29,10 +29,25 @@ def get_field_distinct(field):
     }
     return query
 
-def buildQuery(name):
+def buildQuery(args):
+    for x in args:
+       print(args[x])
+    
+    # GET /vgsales/_search
+    # {
+    #   "query": {
+    #     "fuzzy": {
+    #       "Name": {
+    #         "value": "Manrio",
+    #         "fuzziness": "AUTO"
+    #       }
+    #     }
+    #   }
+    # }
+       
     query = {
         "match":{
-            "Name": name
+            "Name": "Mario"
         }
     }
     return query
@@ -68,16 +83,9 @@ def getYearTags():
 
 @app.route('/api/search', methods=['GET'])
 def getSearchRequest():
-    # print(request.headers, file=sys.stderr)
-    # print(request.args, file=sys.stderr)
-    
-    # name = request.args.get('name')
-    # if name == None:
-    #     name = ""
-        
-    # constructed_query = buildQuery(name)
-    # result = es_client.search(index="vgsales",query=constructed_query)
-    return request.args
+    constructed_query = buildQuery(request.args)
+    result = es_client.search(index="vgsales",query=constructed_query)
+    return result
 
 if __name__ == "__main__":
     app.run()
