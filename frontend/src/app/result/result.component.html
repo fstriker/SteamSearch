@@ -1,10 +1,14 @@
 <div class="result" *ngIf="searchResult">
-  <div *ngFor="let result of searchSlice">
-    <app-game [game]="result"></app-game>
+  <div class="gameList">
+    <div class="gameBox">
+      <div *ngFor="let result of searchSlice">
+        <app-game [game]="result"></app-game>
+      </div>
+    </div>
   </div>
   <mat-paginator
     [length]="searchResult.length"
-    [pageSize]="10"
+    [pageSize]="5"
     [pageSizeOptions]="[5, 10, 20, 30]"
     (page)="onPageChange($event)"
     aria-label="Select page"

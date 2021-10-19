@@ -19,7 +19,7 @@ export class ResultComponent implements OnInit {
   }
 
   ngOnChanges(): void {
-    this.searchSlice = this.searchResult.slice(0,10);
+    this.searchSlice = this.searchResult?.slice(0,5);
   }
 
   onPageChange(event: PageEvent) {
