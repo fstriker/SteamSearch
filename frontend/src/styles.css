@@ -9,4 +9,5 @@ body {
   background-color: #c7d5e0;
   background-image: url('background.jpg');
   background-size: auto;
+  overflow: hidden;
 }

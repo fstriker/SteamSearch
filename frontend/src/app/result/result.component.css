@@ -3,8 +3,21 @@
     text-align: center;
 }
 
+.gameList {
+    overflow-y: scroll;
+    height: 700px;
+    width: 100%;
+    text-align: center;
+}
+
 .paginator {
     position: fixed;
     bottom: 0;
     width: 70%;
+}
+
+.gameBox{
+    width: 85%;
+    margin: 0 auto;
+    margin-bottom: 70px;
 }

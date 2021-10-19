@@ -47,12 +47,19 @@ export class SearchComponent implements OnInit {
 
   search() {
     this.loading = true;
-    this.backendService.getSearchResult().then(data => {
-      this.loading = false;
-      this.searchResultEvent.emit(data)
-    }).catch(error => {
-      this.loading = false;
-    })
+    this.backendService
+      .getSearchResult(
+        this.nameControl.value,
+        this.genreControl.value,
+        this.platformControl.value,
+        this.publisherControl.value,
+        this.yearControl.value)
+      .then(data => {
+        this.loading = false;
+        this.searchResultEvent.emit(data)
+      }).catch(error => {
+        this.loading = false;
+      })
   }
 
 }
