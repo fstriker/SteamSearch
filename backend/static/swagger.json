@@ -35,12 +35,12 @@
       }
     ],
     "paths": {
-      "/api/getPlatformTags": {
+      "/api/getTags": {
         "get": {
           "tags": [
-            "Platform Request"
+            "Get distinct tags for filtering"
           ],
-          "summary": "Returns possible platforms",
+          "summary": "Return filters",
           "responses": {
             "200": {
               "description": "OK",
@@ -51,55 +51,7 @@
           }
         }
      },
-      "/api/getGenreTags": {
-        "get": {
-          "tags": [
-            "Genre Request"
-          ],
-          "summary": "Returns possible genres",
-          "responses": {
-            "200": {
-              "description": "OK",
-              "schema": {
-                "$ref": "#/components/schemas/distinctTag"
-              }
-            }
-          }
-        }
-      },
-      "/api/getPublisherTags": {
-        "get": {
-          "tags": [
-            "Publisher Request"
-          ],
-          "summary": "Returns possible publishers",
-          "responses": {
-            "200": {
-              "description": "OK",
-              "schema": {
-                "$ref": "#/components/schemas/distinctTag"
-              }
-            }
-          }
-        }
-     },
-     "/api/getYearTags": {
-      "get": {
-        "tags": [
-          "Year Request"
-        ],
-        "summary": "Returns possible years",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/components/schemas/distinctTag"
-              }
-            }
-          }  
-        }
-      },
-      "/api/search?Rank={Rank}&Name={Name}&Platform={Platform}&Year={Year}&Genre={Genre}&Publisher={Publisher}": {
+     "/api/search?Rank={Rank}&Name={Name}&Platform={Platform}&Year={Year}&Genre={Genre}&Publisher={Publisher}": {
         "parameters": [
           {
             "name": "Rank",

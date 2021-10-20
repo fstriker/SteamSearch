@@ -1,0 +1,77 @@
+{
+  "properties": {
+    "@timestamp": {
+      "type": "date"
+    },
+    "achievements": {
+      "type": "long"
+    },
+    "average_playtime": {
+      "type": "long"
+    },
+    "background": {
+      "type": "keyword"
+    },
+    "categories": {
+      "type": "keyword"
+    },
+    "column1": {
+      "type": "long"
+    },
+    "developer": {
+      "type": "keyword"
+    },
+    "english": {
+      "type": "long"
+    },
+    "genres": {
+      "type": "keyword"
+    },
+    "header_image": {
+      "type": "keyword"
+    },
+    "median_playtime": {
+      "type": "long"
+    },
+    "movies": {
+      "type": "text"
+    },
+    "name": {
+      "type": "text"
+    },
+    "negative_ratings": {
+      "type": "long"
+    },
+    "owners": {
+      "type": "keyword"
+    },
+    "platforms": {
+      "type": "keyword"
+    },
+    "positive_ratings": {
+      "type": "long"
+    },
+    "price": {
+      "type": "double"
+    },
+    "publisher": {
+      "type": "keyword"
+    },
+    "release_date": {
+      "type": "date",
+      "format": "iso8601"
+    },
+    "required_age": {
+      "type": "long"
+    },
+    "screenshots": {
+      "type": "text"
+    },
+    "steam_appid": {
+      "type": "long"
+    },
+    "steamspy_tags": {
+      "type": "keyword"
+    }
+  }
+}

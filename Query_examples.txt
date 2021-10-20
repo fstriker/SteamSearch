@@ -1,0 +1,106 @@
+GET steamstorefinal
+
+GET steamstorefinal/_search?size=0
+{
+  "aggs":{
+       "unique_developers":{
+          "terms":{
+            "field": "developer"
+          }
+       }
+    }
+}
+
+GET steamstorefinal/_search?size=0
+{
+  "aggs": {
+    "unique_genres": {
+      "terms": {
+        "field": "genres"
+      }
+    }
+  }
+}
+
+GET steamstorefinal/_search?size=0
+{
+  "aggs": {
+    "unique_publisher": {
+      "terms": {
+        "field": "publisher"
+      }
+    }
+  }
+}
+
+GET steamstorefinal/_search?size=0
+{
+  "aggs": {
+    "unique_platforms": {
+      "terms": {
+        "field": "platforms"
+      }
+    }
+  }
+}
+
+GET steamstorefinal/_search?size=0
+{
+  "aggs": {
+    "unique_categories": {
+      "terms": {
+        "field": "categories"
+      }
+    }
+  }
+}
+
+GET steamstorefinal/_search
+{
+  "query": {
+    "match": {
+      "steam_appid": "440"
+    }
+  }
+}
+
+GET steamstorefinal/_search?size=0
+{
+  "aggs": {
+    "unique_platforms": {
+      "terms": {
+        "field": "platforms"
+      }
+    },
+    "unique_genres": {
+      "terms": {
+        "field": "genres"
+      }
+    },
+    "unique_categories": {
+      "terms": {
+        "field": "categories"
+      }
+    },
+    "unique_publisher": {
+      "terms": {
+        "field": "publisher"
+      }
+    }
+  }
+}
+
+GET steamstorefinal/_search
+{
+  "query": {
+    "match": {
+      "platforms": "windows"
+    }
+  }
+}
+
+GET /steamstorefinal/_mapping/field/categories
+
+GET /steamstorefinal/_mapping/field/platforms
+
+

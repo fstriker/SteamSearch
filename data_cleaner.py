@@ -6,7 +6,6 @@ from pandas.core.base import PandasObject
 from pandas.io import json
 
 
-
 def csJson():
     f = open('cleanedSteam.json','w',encoding='utf-8')
 
