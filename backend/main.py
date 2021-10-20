@@ -1,5 +1,5 @@
 import sys
-from api.query import buildQuery, get_field_distinct
+from api.query import build_Query, test_Query, get_field_distinct
 from flask import Flask, request
 from elasticsearch import Elasticsearch
 from flask_swagger_ui import get_swaggerui_blueprint
@@ -29,14 +29,20 @@ def index():
 # Textfields cant be aggregated
 @app.route('/api/getTags', methods=['GET'])
 def getPlatTags():
-    dist_query = get_field_distinct()
-    result = es_client.search(index="steamstorepremium",aggs=dist_query,size=0)
+    generated_query = get_field_distinct()
+    result = es_client.search(index="steamstorepremium",aggs=generated_query,size=0)
     return result
 
+@app.route('/api/getTest', methods=['GET'])
+def getTestRequest():
+    generated_query = test_Query()
+    result = es_client.search(index="steamstorepremium",query=generated_query)
+    return result
+    
 @app.route('/api/search', methods=['GET'])
 def getSearchRequest():
-    constructed_query = buildQuery(request.args)
-    result = es_client.search(index="steamstorepremium",query=constructed_query)
+    generated_query = build_Query(request.args)
+    result = es_client.search(index="steamstorepremium",query=generated_query)
     return result
 
 if __name__ == "__main__":

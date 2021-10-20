@@ -1,16 +1,5 @@
 {
     "openapi": "3.0.0",
-    "components": {
-        "distinctTag": {
-          "type": "object",
-          "properties": {
-            "platform": {
-              "type": "string",
-              "format": "string"
-            }
-          }
-        }
-      },
     "info": {
       "description": "API Documentation",
       "version": "1.0.0",
@@ -43,23 +32,26 @@
           "summary": "Return filters",
           "responses": {
             "200": {
-              "description": "OK",
-              "schema": {
-                "$ref": "#/components/schemas/distinctTag"
-              }
+              "description": "OK"
             }
           }
         }
      },
-     "/api/search?Rank={Rank}&Name={Name}&Platform={Platform}&Year={Year}&Genre={Genre}&Publisher={Publisher}": {
+      "/api/getTest": {
+        "get": {
+          "tags": [
+            "Test Tags"
+          ],
+          "summary": "Test to check connection",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+     },
+     "/api/search?Developer={Developer}&Name={Name}&Platform={Platform}&Genre={Genre}&Publisher={Publisher}": {
         "parameters": [
-          {
-            "name": "Rank",
-            "in": "path",
-            "required": false,
-            "description": "Rank of the game",
-            "type": "string"
-          },
           {
             "name": "Name",
             "in": "path",
@@ -75,10 +67,10 @@
             "type": "string"
           },
           {
-            "name": "Year",
+            "name": "Developer",
             "in": "path",
             "required": false,
-            "description": "Year of release",
+            "description": "Game developer",
             "type": "date"
           },
           {
@@ -103,23 +95,13 @@
           "summary": "Search for video games",
           "responses": {
             "200": {
-              "description": "OK",
-              "schema": {
-                "$ref": "#/components/schemas/distinctTag"
-                }
+              "description": "OK"
               }
             }  
           }
         },
-        "/api/search?Rank={Rank}&Name={Name}": {
+        "/api/search?Name={Name}": {
           "parameters": [
-            {
-              "name": "Rank",
-              "in": "path",
-              "required": false,
-              "description": "Rank of the game",
-              "type": "string"
-            },
             {
               "name": "Name",
               "in": "path",
@@ -135,10 +117,7 @@
             "summary": "Search for video games",
             "responses": {
               "200": {
-                "description": "OK",
-                "schema": {
-                  "$ref": "#/components/schemas/distinctTag"
-                  }
+                "description": "OK"
                 }
               }  
             }

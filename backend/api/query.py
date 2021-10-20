@@ -33,10 +33,19 @@ def get_field_distinct():
     }
     return query
 
-def buildQuery(args):
-    for x in args:
-       print(args[x])
-    
+def test_Query():
+    query = {
+        "match":{
+            "Name": "Tomb Raider"
+        }
+    }
+
+def build_Query(args):
+    query = {
+        "match":{
+            "Name": "Counter"
+        }
+    }
     
     
     # Fuzzy Search for specific term
@@ -53,9 +62,5 @@ def buildQuery(args):
     # }
     
     # Search for term directly
-    # query = {
-    #     "match":{
-    #         "Name": "Mario"
-    #     }
-    # }
+
     #return query
