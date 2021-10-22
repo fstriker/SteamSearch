@@ -20,6 +20,9 @@ SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
 )
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
+INDEX = "steamstoresearch"
+
+
 @app.route('/')
 def index():
     result = es_client.info()
@@ -30,19 +33,19 @@ def index():
 @app.route('/api/getTags', methods=['GET'])
 def getPlatTags():
     generated_query = get_field_distinct()
-    result = es_client.search(index="steamstorepremium",aggs=generated_query,size=0)
+    result = es_client.search(index=INDEX,aggs=generated_query,size=0)
     return result
 
 @app.route('/api/getTest', methods=['GET'])
 def getTestRequest():
     generated_query = test_Query()
-    result = es_client.search(index="steamstorepremium",query=generated_query)
+    result = es_client.search(index=INDEX,query=generated_query)
     return result
     
 @app.route('/api/search', methods=['GET'])
 def getSearchRequest():
     generated_query = build_Query(request.args)
-    result = es_client.search(index="steamstorepremium",query=generated_query)
+    result = es_client.search(index=INDEX,query=generated_query)
     return result
 
 if __name__ == "__main__":

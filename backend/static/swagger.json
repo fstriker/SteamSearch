@@ -50,41 +50,48 @@
           }
         }
      },
-     "/api/search?Developer={Developer}&Name={Name}&Platform={Platform}&Genre={Genre}&Publisher={Publisher}": {
+     "/api/search?developer={developer}&name={name}&platform={platform}&genre={genre}&publisher={publisher}&categories={categories}": {
         "parameters": [
           {
-            "name": "Name",
+            "name": "name",
             "in": "path",
             "required": false,
             "description": "Name of game",
             "type": "string"
           },
           {
-            "name": "Platform",
+            "name": "platform",
             "in": "path",
             "required": false,
             "description": "Game platform",
             "type": "string"
           },
           {
-            "name": "Developer",
+            "name": "developer",
             "in": "path",
             "required": false,
             "description": "Game developer",
             "type": "date"
           },
           {
-            "name": "Genre",
+            "name": "genre",
             "in": "path",
             "required": false,
             "description": "Game genre",
             "type": "string"
           },
           {
-            "name": "Publisher",
+            "name": "publisher",
             "in": "path",
             "required": false,
             "description": "Publisher of the game",
+            "type": "string"
+          },
+          {
+            "name": "categories",
+            "in": "path",
+            "required": false,
+            "description": "Game categories",
             "type": "string"
           }
         ],
