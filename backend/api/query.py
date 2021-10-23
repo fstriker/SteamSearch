@@ -1,4 +1,5 @@
 from elasticsearch_dsl import Search
+from elasticsearch_dsl.query import Q
 
 RESULT_SIZE = 200
 
@@ -33,17 +34,20 @@ def get_field_distinct():
             "field": "developer",
             "size": RESULT_SIZE
           }
+        },
+        "min_price": {
+          "min":{
+            "field": "price" 
+          }
+       },
+       "max_price":{
+         "max":{
+           "field":"price"
+         }
        }
     }
     return query
 
-def test_Query():
-    query = {
-        "match":{
-            "name": "Tomb Raider"
-        }
-    }
-    return query
 #------------------------------
 # LEAF -> exists, fuzzy, ids, range, term, terms -> https://www.elastic.co/guide/en/elasticsearch/reference/current/term-level-queries.html
 # Search Engine -> interval, match, multi_match, combined_fields -> https://www.elastic.co/guide/en/elasticsearch/reference/current/full-text-queries.html
@@ -53,42 +57,54 @@ def test_Query():
 # Auto Complete
 # Einfache Lösung in Form von geringen Aufwand (Eventuell schlechte Ergebnisse und langsam) - https://www.elastic.co/guide/en/elasticsearch/reference/7.2/search-as-you-type.html
 # Completion Suggester (Aufwendig, aber schnell) - https://www.elastic.co/guide/en/elasticsearch/reference/6.8/search-suggesters-completion.html
-
-# Position 1
-# Geht is not None?
-# Limit 10.000 Elemente, danch sollte search_after verwendet werden.
-# Quelle: https://www.elastic.co/guide/en/elasticsearch/reference/current/paginate-search-results.html
-# def query_paginate(pag_from, result_size):
-#   query_string = ""
-#   if pag_from is not None:
-#     query_string.join(f'"from": {pag_from},\n')
-#   if result_size is not None:
-#     query_string.join(f'"size":{result_size},\n') 
-#   return query_string
-
-
-# Position 2
-# sort_order = "asc" or "desc"
-# Erweiterbar: - Dict als Eingabe verwenden und iterieren
-# Erweiterbar: - Komplexere Sortierungen wie bspw. {"price" : {"order" : "asc", "mode" : "avg"}}
-# mode -> min, max, sum, avg, median
-# Quelle: https://www.elastic.co/guide/en/elasticsearch/reference/current/sort-search-results.html
-# def query_sort(sort_order, field):
-#   query_string = f'"sort" : ['
-#   query_string.join(f'{"{field}": "{sort_order}"}')
-#   query_string.join(f'],')
-#   return query_string
     
 def build_Query(es_client,index, args):
     query = Search(using=es_client, index=index) 
     name = args.get('name')
-    # developer = args.get('developer')
     
-    # if developer is not None:
-    #   query = query.filter('terms', developer=[developer])
+    developer = args.get('developer')
+    publisher = args.get('publisher')
+    platforms = args.get('platforms')
+    genres = args.get('genres')
+    categories = args.get('categories')
+    sort = args.get('sort')
+    mode = args.get('mode')
+    price_start = args.get('price_start')
+    price_end = args.get('price_end')
+    
+    if developer is not None:
+      query = query.filter('terms', developer=[developer])
+      
+    if publisher is not None:
+      query = query.filter('terms', publisher=[publisher])
+      
+    if platforms is not None:
+      platforms_list = platforms.split(',')
+      for platform in platforms_list:
+        query = query.query(Q('bool',must=[Q('match',platforms=platform)]))
+      #query = query.filter('terms', platforms=platforms_list)
+      
+    if genres is not None:
+      genres_list = genres.split(',')
+      for genre in genres_list:
+        query = query.query(Q('bool',must=[Q('match',genres=genre)]))
+      #query = query.filter('terms', genres=genres_list)
+    
+    if categories is not None:
+      categories_list = categories.split(',')
+      for category in categories_list:
+        query = query.query(Q('bool',must=[Q('match',categories=category)]))
+      #query = query.filter('terms', categories=categories_list)
+      
+    if price_start is not None and price_end is not None:
+      query = query.filter('range', price={'gte':'price_start', 'lte':'price_end'})
       
     if name is not None:
       query = query.query('match', name=name)
+     
+    if sort is not None and mode is not None:
+      query = query.sort({sort: {'order': mode}})
+      
     return query
   
 def build_paginate_Query(es_client,index, args):
@@ -109,5 +125,3 @@ def build_paginate_Query(es_client,index, args):
 #     }
 #   }
 # }
-
-# Search for term directly

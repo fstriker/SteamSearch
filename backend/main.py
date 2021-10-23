@@ -1,5 +1,5 @@
 import sys
-from api.query import build_Query, test_Query, get_field_distinct, build_paginate_Query
+from api.query import build_Query, get_field_distinct, build_paginate_Query
 from flask import Flask, request
 from elasticsearch import Elasticsearch
 from flask_swagger_ui import get_swaggerui_blueprint
@@ -22,7 +22,8 @@ SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
 )
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
-INDEX = "steamstoresearch"
+#INDEX = "steamstoresearch"
+INDEX = "steamgames"
 
 
 @app.route('/')
@@ -37,21 +38,15 @@ def getPlatTags():
     generated_query = get_field_distinct()
     result = es_client.search(index=INDEX,aggs=generated_query,size=0)
     return result
-
-@app.route('/api/getTest', methods=['GET'])
-def getTestRequest():
-    generated_query = test_Query()
-    result = es_client.search(index=INDEX,query=generated_query)
-    return result
     
 @app.route('/api/search', methods=['GET'])
 def getSearchRequest():
     print(request.args)
-    size = request.args.get("size")
-    if size is None:
-        size = 15
-    else:
-        size = int(size)
+    # size = request.args.get("size")
+    # if size is None:
+    #     size = 15
+    # else:
+    #     size = int(size)
         
     start = request.args.get("from")
     if start is None:
@@ -59,15 +54,25 @@ def getSearchRequest():
     else:
         start = int(start)
         
+    end = start + 15  
     generated_query = build_Query(es_client, INDEX, request.args)
-    generated_query = generated_query[start:size]
+    generated_query = generated_query[start:end]
     es_response = generated_query.execute()
     return es_response.to_dict()
+
+@app.route('/api/all', methods=['GET'])
+def getAll():
+    query = { 
+        'match_all': {}
+    }
+    result = es_client.search(index=INDEX,query=query)
+    return result
 
 @app.route('/api/suggestor', methods=['GET'])
 def getSuggestRequest():
     print(request.args)
     return "TODO"
+
 
 if __name__ == "__main__":
     app.run()
