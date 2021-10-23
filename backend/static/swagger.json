@@ -50,8 +50,22 @@
           }
         }
      },
-     "/api/search?developer={developer}&name={name}&platform={platform}&genre={genre}&publisher={publisher}&categories={categories}": {
+     "/api/search?size={size}&from={from}&developer={developer}&name={name}&platforms={platforms}&genres={genres}&publisher={publisher}&categories={categories}": {
         "parameters": [
+          {
+            "name": "size",
+            "in": "path",
+            "required": false,
+            "description": "results to show per page",
+            "type": "string"
+          },
+          {
+            "name": "from",
+            "in": "path",
+            "required": false,
+            "description": "starting Point",
+            "type": "string"
+          },
           {
             "name": "name",
             "in": "path",
@@ -60,7 +74,7 @@
             "type": "string"
           },
           {
-            "name": "platform",
+            "name": "platforms",
             "in": "path",
             "required": false,
             "description": "Game platform",
@@ -74,10 +88,10 @@
             "type": "date"
           },
           {
-            "name": "genre",
+            "name": "genres",
             "in": "path",
             "required": false,
-            "description": "Game genre",
+            "description": "Game genres",
             "type": "string"
           },
           {
@@ -107,13 +121,27 @@
             }  
           }
         },
-        "/api/search?Name={Name}": {
+        "/api/search?size={size}&name={name}&from={from}": {
           "parameters": [
             {
-              "name": "Name",
+              "name": "name",
               "in": "path",
               "required": false,
               "description": "Name of game",
+              "type": "string"
+            },
+            {
+              "name": "from",
+              "in": "path",
+              "required": false,
+              "description": "from",
+              "type": "string"
+            },
+            {
+              "name": "size",
+              "in": "path",
+              "required": false,
+              "description": "results to show per page",
               "type": "string"
             }
           ],
@@ -128,6 +156,19 @@
                 }
               }  
             }
-          }
+          },
+          "/api/search": {
+            "get": {
+              "tags": [
+                "Search"
+              ],
+              "summary": "Search for video games",
+              "responses": {
+                "200": {
+                  "description": "OK"
+                  }
+                }  
+              }
+       }
   }
  }
