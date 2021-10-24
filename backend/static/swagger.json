@@ -156,6 +156,42 @@
                 }
               }  
             }
+        },
+        "/api/search?name={name}&developer={developer}&platforms={platforms}": {
+          "parameters": [
+            {
+              "name": "name",
+              "in": "path",
+              "required": false,
+              "description": "Name of game",
+              "type": "string"
+            },
+            {
+              "name": "platforms",
+              "in": "path",
+              "required": false,
+              "description": "Game platform",
+              "type": "string"
+            },
+            {
+              "name": "developer",
+              "in": "path",
+              "required": false,
+              "description": "Game developer",
+              "type": "date"
+            }
+          ],
+          "get": {
+            "tags": [
+              "Search"
+            ],
+            "summary": "Search for video games",
+            "responses": {
+              "200": {
+                "description": "OK"
+                }
+              }  
+            }
           },
           "/api/search": {
             "get": {
@@ -169,6 +205,56 @@
                   }
                 }  
               }
-       }
-  }
+         },
+         "/api/search?platforms={platforms}&genres={genres}&categories={categories}": {
+          "parameters": [
+            {
+              "name": "platforms",
+              "in": "path",
+              "required": false,
+              "description": "Game platform",
+              "type": "string"
+            },
+            {
+              "name": "genres",
+              "in": "path",
+              "required": false,
+              "description": "Game genres",
+              "type": "string"
+            },
+            {
+              "name": "categories",
+              "in": "path",
+              "required": false,
+              "description": "Game categories",
+              "type": "string"
+            }
+          ],
+          "get": {
+            "tags": [
+              "Search"
+            ],
+            "summary": "Search for video games",
+            "responses": {
+              "200": {
+                "description": "OK"
+                }
+              }  
+            }
+          },
+          "/api/all": {
+            "get": {
+              "tags": [
+                "Search"
+              ],
+              "summary": "Search for video games",
+              "responses": {
+                "200": {
+                  "description": "OK"
+                  }
+                }  
+              }
+           }
+
+    }
  }
