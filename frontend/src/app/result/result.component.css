@@ -1,7 +1,7 @@
 @import url('http://fonts.cdnfonts.com/css/new-super-mario-font-u');
 #welcomeBox {
     margin: 0 auto;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: center;
     font-size: 5em;
     font-family: 'New Super Mario Font U', sans-serif;
@@ -21,6 +21,7 @@
   text-align: center;
   margin: 0 auto;
   overflow-y: auto;
+  margin-bottom: 10px;
 }
 
 .paginator {

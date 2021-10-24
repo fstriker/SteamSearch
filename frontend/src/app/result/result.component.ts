@@ -10,7 +10,7 @@ import { BackendService } from '../services/backend.service';
   styleUrls: ['./result.component.css']
 })
 export class ResultComponent implements OnInit {
-  @ViewChild('paginator', { static: false }) paginator:MatPaginator = {} as MatPaginator;
+  @ViewChild('paginator', { static: false }) paginator: MatPaginator = {} as MatPaginator;
 
   @Input()
   searchResult!: Search;
@@ -35,7 +35,9 @@ export class ResultComponent implements OnInit {
       this.searchResult.publisher,
       this.searchResult.developer,
       this.searchResult.categories,
-      startIndex).then((data: Search) => {
+      startIndex,
+      this.searchResult.minPrice,
+      this.searchResult.maxPrice).then((data: Search) => {
         this.searchResult = data;
         this.searchSlice = data.games;
       })

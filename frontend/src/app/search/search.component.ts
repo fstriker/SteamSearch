@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { BackendService } from '../services/backend.service';
-import { map, mergeMap, startWith } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
+import { MatSlider } from '@angular/material/slider';
 
 @Component({
   selector: 'app-search',
@@ -11,6 +12,7 @@ import { map, mergeMap, startWith } from 'rxjs/operators';
 })
 export class SearchComponent implements OnInit {
 
+  @ViewChild('sliderPrice', { static: false }) sliderPrice:MatSlider = {} as MatSlider;
   @Output() searchResultEvent = new EventEmitter<any>();
 
   genreControl = new FormControl();
@@ -56,6 +58,14 @@ export class SearchComponent implements OnInit {
 
   search() {
     this.loading = true;
+    let minPrice, maxPrice:number;
+    if (this.sliderPrice.value == 70) {
+      minPrice = 60;
+      maxPrice = 10000;
+    } else {
+      minPrice = 0;
+      maxPrice = this.sliderPrice.value == undefined ? 0 : this.sliderPrice.value;
+    }
     this.backendService
       .getSearchResult(
         this.nameControl.value,
@@ -64,13 +74,25 @@ export class SearchComponent implements OnInit {
         this.publisherControl.value,
         this.developerControl.value,
         this.categoriesControl.value
-        , 0)
+        , 0, minPrice, maxPrice)
       .then(data => {
         this.loading = false;
         this.searchResultEvent.emit(data)
       }).catch(error => {
         this.loading = false;
       })
+  }
+
+  formatLabel(value: number) {
+    let label: string = "";
+    if (value == 70) {
+      label = ">60€";
+    } else if (value == 0) {
+      label = "Free"
+    } else {
+      label = "<" + value + "€";
+    }
+    return label;
   }
 
 }

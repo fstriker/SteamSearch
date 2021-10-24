@@ -68,6 +68,19 @@
       </mat-select>
     </mat-form-field>
 
+    <mat-label>Price</mat-label>
+    <mat-slider
+      #sliderPrice
+      class="priceSlider"
+      thumbLabel
+      [displayWith]="formatLabel"
+      tickInterval="10"
+      step="10"
+      min="0"
+      max="70"
+      aria-label="units"
+    ></mat-slider>
+
     <button
       class="searchbutton"
       mat-raised-button

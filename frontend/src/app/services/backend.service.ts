@@ -23,7 +23,7 @@ export class BackendService {
     })
   }
 
-  buildSearchParams(name: string, genreTags: string[], platformTags: string[], publisher: string, developer: string, categorieTags: string[], from: number) {
+  buildSearchParams(name: string, genreTags: string[], platformTags: string[], publisher: string, developer: string, categorieTags: string[], from: number, minPrice: number, maxPrice: number) {
     let dictParams: any = {};
     if (name != null && name != "") dictParams["name"] = name;
     if (genreTags != undefined && genreTags.length > 0) dictParams["genreTags"] = genreTags.toString();
@@ -31,6 +31,8 @@ export class BackendService {
     if (publisher != null && publisher != "") dictParams["publisherTags"] = publisher;
     if (developer != null && developer != "") dictParams["developerTags"] = developer;
     if (categorieTags != null && categorieTags.length > 0) dictParams["categorieTags"] = categorieTags.toString();
+    if (minPrice != null) dictParams["price_start"] = minPrice;
+    if (maxPrice != null) dictParams["price_end"] = maxPrice;
     dictParams["from"] = from;
     return dictParams;
   }
@@ -68,8 +70,8 @@ export class BackendService {
     return gameList;
   }
 
-  getSearchResult(name: string, genreTags: string[], platformTags: string[], publisher: string, developer: string, categorieTags: string[], from: number) {
-    let dictParams: any = this.buildSearchParams(name, genreTags, platformTags, publisher, developer, categorieTags, from);
+  getSearchResult(name: string, genreTags: string[], platformTags: string[], publisher: string, developer: string, categorieTags: string[], from: number, minPrice: number, maxPrice: number) {
+    let dictParams: any = this.buildSearchParams(name, genreTags, platformTags, publisher, developer, categorieTags, from, minPrice, maxPrice);
     return this.http
       .get(this.backendUrl + "/api/search",
         {
@@ -86,7 +88,9 @@ export class BackendService {
             platform: platformTags,
             publisher: publisher,
             totalHits: data.hits.total.value,
-            lastFrom: from
+            lastFrom: from,
+            minPrice: minPrice,
+            maxPrice: maxPrice
           }
           return search
         })

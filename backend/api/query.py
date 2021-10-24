@@ -106,7 +106,7 @@ def build_Query(es_client,index, args):
     
   if price_start is not None and price_end is not None:
     print("price")
-    query = query.filter('range', price={'gte':'price_start', 'lte':'price_end'})
+    query = query.filter('range', price={'gte':price_start, 'lte':price_end})
     
   if name is not None:
     print("name")

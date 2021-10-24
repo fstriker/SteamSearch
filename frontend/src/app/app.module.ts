@@ -18,6 +18,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatSelectSearchModule } from 'mat-select-search';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatSliderModule} from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatPaginatorModule,
     MatExpansionModule,
     MatSelectSearchModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

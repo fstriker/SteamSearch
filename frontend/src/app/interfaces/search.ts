@@ -10,4 +10,6 @@ export interface Search {
     categories: string[];
     totalHits: number;
     lastFrom: number;
+    minPrice: number;
+    maxPrice: number;
 }
