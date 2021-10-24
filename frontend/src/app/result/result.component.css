@@ -1,23 +1,19 @@
 .result {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  height: 80vh;
 }
 
 .gameList {
-    overflow-y: scroll;
-    height: 700px;
-    width: 100%;
-    text-align: center;
+  width: 85%;
+  height: calc(100% - 10vh);
+  text-align: center;
+  margin: 0 auto;
+  overflow-y: auto;
+  margin-bottom: 100px;
 }
 
 .paginator {
-    position: fixed;
-    bottom: 0;
-    width: 70%;
-}
-
-.gameBox{
-    width: 85%;
-    margin: 0 auto;
-    margin-bottom: 70px;
+  position: fixed;
+  width: 85%;
+  bottom: 0;
 }

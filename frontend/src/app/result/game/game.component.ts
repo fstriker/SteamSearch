@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Game } from 'src/app/interfaces/game';
 
 @Component({
@@ -8,11 +8,19 @@ import { Game } from 'src/app/interfaces/game';
 })
 export class GameComponent implements OnInit {
 
+  public panelOpenState: boolean = false;
+
+  @ViewChild('videoPlayer')
+  videoplayer!: ElementRef;
   @Input() game!: Game;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  toggleVideo(event: any) {
+      this.videoplayer.nativeElement.play();
   }
 
 }

@@ -1,7 +1,32 @@
-.game {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    height: 80px;
-    margin-bottom: 15px;
-    font-size: 16px;
+.title {
+    margin: 0 auto;
+    margin-top: 40px;
+    font-size: 2em;
+}
+
+.header {
+    height: 150px;
+}
+
+.header_img {
+    width: 200px;
+    height: 100px;
+}
+
+.column {
+    display: flex;
+    flex-direction: row;
+}
+
+.row {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    white-space: initial;
+    width: 15vw;
+    font-size: 1.2em;
+}
+
+.space {
+    margin-left: 2.5vw;
 }

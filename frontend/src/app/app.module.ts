@@ -15,7 +15,7 @@ import { GameComponent } from './result/game/game.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatCardModule} from '@angular/material/card';
+import {MatExpansionModule} from '@angular/material/expansion'
 
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import {MatCardModule} from '@angular/material/card';
     FormsModule,
     HttpClientModule,
     MatPaginatorModule,
-    MatCardModule
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

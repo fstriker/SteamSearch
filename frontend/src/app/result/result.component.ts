@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Game } from '../interfaces/game';
+import { Search } from '../interfaces/search';
+import { BackendService } from '../services/backend.service';
 
 @Component({
   selector: 'app-result',
@@ -8,27 +10,35 @@ import { Game } from '../interfaces/game';
   styleUrls: ['./result.component.css']
 })
 export class ResultComponent implements OnInit {
+  @ViewChild('paginator', { static: false }) paginator:MatPaginator = {} as MatPaginator;
 
   @Input()
-  searchResult!: Game[];
+  searchResult!: Search;
   public searchSlice: Game[] = [];
 
-  constructor() { }
+  constructor(public backendService: BackendService) { }
 
   ngOnInit(): void {
   }
 
   ngOnChanges(): void {
-    this.searchSlice = this.searchResult?.slice(0,5);
+    this.paginator.pageIndex = 0;
+    this.searchSlice = this.searchResult?.games;
   }
 
   onPageChange(event: PageEvent) {
     const startIndex = event.pageIndex * event.pageSize;
-    let endIndex = startIndex + event.pageSize;
-    if (endIndex > this.searchResult.length) {
-      endIndex = this.searchResult.length
-    }
-    this.searchSlice = this.searchResult.slice(startIndex, endIndex);
+    this.backendService.getSearchResult(
+      this.searchResult.name,
+      this.searchResult.genres,
+      this.searchResult.platform,
+      this.searchResult.publisher,
+      this.searchResult.developer,
+      this.searchResult.categories,
+      startIndex).then((data: Search) => {
+        this.searchResult = data;
+        this.searchSlice = data.games;
+      })
   }
 
 }
