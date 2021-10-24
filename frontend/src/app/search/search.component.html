@@ -4,15 +4,25 @@
       <span style="color: green">Search </span
       ><span style="color: red">for </span>
       <span style="color: yellow">new </span>
-      <span style="color: rgb(58, 58, 255)">adventures</span>
+      <span style="color: rgb(75, 75, 253)">adventures</span>
     </div>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Game Name</mat-label>
       <input [formControl]="nameControl" matInput placeholder="Pac-Man" />
     </mat-form-field>
 
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Publisher</mat-label>
+      <input [formControl]="publisherControl" matInput placeholder="Bethesda Softworks" />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Developer</mat-label>
+      <input [formControl]="developerControl" matInput placeholder="Ubisoft Montreal" />
+    </mat-form-field>
+
     <mat-form-field class="picker" appearance="fill">
-      <mat-label>Genre</mat-label>
+      <mat-label>Genres</mat-label>
       <mat-select [formControl]="genreControl" multiple>
         <mat-option *ngFor="let genre of genreList" [value]="genre">{{
           genre
@@ -30,23 +40,12 @@
     </mat-form-field>
 
     <mat-form-field class="picker" appearance="fill">
-      <mat-label>Publisher</mat-label>
-      <mat-select [formControl]="publisherControl" multiple>
+      <mat-label>Categories</mat-label>
+      <mat-select [formControl]="categoriesControl" multiple>
         <mat-option
-          *ngFor="let publisher of publisherList"
-          [value]="publisher"
-          >{{ publisher }}</mat-option
-        >
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="picker" appearance="fill">
-      <mat-label>Year</mat-label>
-      <mat-select [formControl]="yearControl" multiple>
-        <mat-option
-          *ngFor="let year of yearList"
-          [value]="year"
-          >{{ year }}</mat-option
+          *ngFor="let categorie of categorieList"
+          [value]="categorie"
+          >{{ categorie }}</mat-option
         >
       </mat-select>
     </mat-form-field>

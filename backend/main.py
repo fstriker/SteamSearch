@@ -60,7 +60,7 @@ def getSearchRequest():
         start = int(start)
         
     generated_query = build_Query(es_client, INDEX, request.args)
-    generated_query = generated_query[start:size]
+    generated_query = generated_query[start:start+15]
     es_response = generated_query.execute()
     return es_response.to_dict()
 

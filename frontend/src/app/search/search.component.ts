@@ -17,11 +17,12 @@ export class SearchComponent implements OnInit {
   platformControl = new FormControl();
   platformList: string[] = [];
 
-  publisherControl = new FormControl();
-  publisherList: string[] = [];
+  categoriesControl = new FormControl();
+  categorieList: string[] = [];
 
-  yearControl = new FormControl();
-  yearList: string[] = [];
+  publisherControl = new FormControl();
+
+  developerControl = new FormControl();
 
   nameControl = new FormControl();
 
@@ -31,17 +32,10 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.backendService.getGenreTags().then(data => {
-      this.genreList = data
-    })
-    this.backendService.getPlatformTags().then(data => {
-      this.platformList = data
-    })
-    this.backendService.getPublisherTags().then(data => {
-      this.publisherList = data
-    })
-    this.backendService.getYearTags().then(data => {
-      this.yearList = data
+    this.backendService.getTags().then((data:any) => {
+      this.categorieList = data[0];
+      this.genreList = data[2];
+      this.platformList = data[3];
     })
   }
 
@@ -53,7 +47,8 @@ export class SearchComponent implements OnInit {
         this.genreControl.value,
         this.platformControl.value,
         this.publisherControl.value,
-        this.yearControl.value)
+        this.categoriesControl.value,
+        this.developerControl.value,0)
       .then(data => {
         this.loading = false;
         this.searchResultEvent.emit(data)
