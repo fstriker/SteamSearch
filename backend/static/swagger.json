@@ -327,7 +327,73 @@
                 }
               }  
             }
-       }
+       },
+       "/api/search?platform={platform}": {
+        "parameters": [
+          {
+            "name": "platform",
+            "in": "path",
+            "required": false,
+            "description": "platform",
+            "type": "string"
+         }
+        ],
+        "get": {
+          "tags": [
+            "Search"
+          ],
+          "summary": "Search for video games",
+          "responses": {
+            "200": {
+              "description": "OK"
+              }
+            }  
+          }
+        },  
+        "/api/search?genre={genre}": {
+          "parameters": [
+            {
+              "name": "genre",
+              "in": "path",
+              "required": false,
+              "description": "genre",
+              "type": "string"
+           }
+          ],
+          "get": {
+            "tags": [
+              "Search"
+            ],
+            "summary": "Search for video games",
+            "responses": {
+              "200": {
+                "description": "OK"
+                }
+              }  
+            }
+          },
+          "/api/search?categories={categories}": {
+            "parameters": [
+              {
+                "name": "categories",
+                "in": "path",
+                "required": false,
+                "description": "categories",
+                "type": "string"
+             }
+            ],
+            "get": {
+              "tags": [
+                "Search"
+              ],
+              "summary": "Search for video games",
+              "responses": {
+                "200": {
+                  "description": "OK"
+                  }
+                }  
+              }
+            }
 
     }
  }

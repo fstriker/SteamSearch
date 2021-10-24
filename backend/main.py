@@ -23,8 +23,8 @@ SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
 #INDEX = "steamstoresearch"
-#INDEX = "steamgames"
-INDEX = "steamauto"
+INDEX = "steamgames"
+#INDEX = "steamauto"
 
 
 @app.route('/')
@@ -42,23 +42,24 @@ def getPlatTags():
     
 @app.route('/api/search', methods=['GET'])
 def getSearchRequest():
-    print(request.args)
-    print(len(request.args))
-    
-    if len(request.args) == 1:
+    print(f"Anzahl Args:{len(request.args)}")
+    #Fuzzy
+    if len(request.args) == 2:
         for arg in request.args:
             if arg == 'name':
+                print('fuzzy')
                 generated_query = build_fuzzy_query(request.args[arg])
                 result = es_client.search(index=INDEX,query=generated_query)
                 return result
-                      
+    #request_size
     start = request.args.get("from")
     if start is None:
         start = 0
     else:
         start = int(start)
-        
     end = start + 15  
+    
+    #Query
     generated_query = build_Query(es_client, INDEX, request.args)
     generated_query = generated_query[start:end]
     es_response = generated_query.execute()
