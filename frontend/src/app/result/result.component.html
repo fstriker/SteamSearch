@@ -1,10 +1,4 @@
 <div class="result">
-  <div id="welcomeBox">
-    <span style="color: green">Search </span
-    ><span style="color: red">for </span>
-    <span style="color: yellow">new </span>
-    <span style="color: rgb(75, 75, 253)">adventures</span>
-  </div>
   <div class="gameList" *ngIf="searchResult">
     <div *ngFor="let result of searchSlice">
       <app-game [game]="result"></app-game>

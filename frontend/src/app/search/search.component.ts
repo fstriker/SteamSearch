@@ -12,7 +12,7 @@ import { MatSlider } from '@angular/material/slider';
 })
 export class SearchComponent implements OnInit {
 
-  @ViewChild('sliderPrice', { static: false }) sliderPrice:MatSlider = {} as MatSlider;
+  @ViewChild('sliderPrice', { static: false }) sliderPrice: MatSlider = {} as MatSlider;
   @Output() searchResultEvent = new EventEmitter<any>();
 
   genreControl = new FormControl();
@@ -46,7 +46,10 @@ export class SearchComponent implements OnInit {
       this.genreList = data[2];
       this.platformList = data[3];
       this.publisherList = data[4];
+      this.genreControl.setValue([this.genreList[Math.floor(Math.random() * this.genreList.length)]]) 
+      this.search()
     })
+    console.log(this.genreControl.value)
     this.filteredNames = this.nameControl.valueChanges.pipe(
       mergeMap(value => {
         return this.backendService.getNameAutoComplete(value).then((nameSuggestions: string[]) => {
@@ -58,7 +61,7 @@ export class SearchComponent implements OnInit {
 
   search() {
     this.loading = true;
-    let minPrice, maxPrice:number;
+    let minPrice, maxPrice: number;
     if (this.sliderPrice.value == 70) {
       minPrice = 60;
       maxPrice = 10000;
