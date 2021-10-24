@@ -1,5 +1,5 @@
 import sys
-from api.query import build_Query, get_field_distinct, build_paginate_Query
+from api.query import build_Query, get_field_distinct, build_fuzzy_query
 from flask import Flask, request
 from elasticsearch import Elasticsearch
 from flask_swagger_ui import get_swaggerui_blueprint
@@ -23,7 +23,8 @@ SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
 #INDEX = "steamstoresearch"
-INDEX = "steamgames"
+#INDEX = "steamgames"
+INDEX = "steamauto"
 
 
 @app.route('/')
@@ -42,12 +43,15 @@ def getPlatTags():
 @app.route('/api/search', methods=['GET'])
 def getSearchRequest():
     print(request.args)
-    # size = request.args.get("size")
-    # if size is None:
-    #     size = 15
-    # else:
-    #     size = int(size)
-        
+    print(len(request.args))
+    
+    if len(request.args) == 1:
+        for arg in request.args:
+            if arg == 'name':
+                generated_query = build_fuzzy_query(request.args[arg])
+                result = es_client.search(index=INDEX,query=generated_query)
+                return result
+                      
     start = request.args.get("from")
     if start is None:
         start = 0
@@ -70,8 +74,11 @@ def getAll():
 
 @app.route('/api/suggestor', methods=['GET'])
 def getSuggestRequest():
-    print(request.args)
-    return "TODO"
+    name = request.args.get('name')
+    query = Search(using=es_client, index=INDEX)
+    s = query.suggest('Autocomplete', name, completion={'field': 'suggest'})
+    result = s.execute()
+    return result.to_dict()
 
 
 if __name__ == "__main__":

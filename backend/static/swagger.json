@@ -85,7 +85,7 @@
             "in": "path",
             "required": false,
             "description": "Game developer",
-            "type": "date"
+            "type": "string"
           },
           {
             "name": "genres",
@@ -243,6 +243,28 @@
             }
           },
           "/api/all": {
+           "get": {
+              "tags": [
+                "Search"
+              ],
+              "summary": "Search for video games",
+              "responses": {
+                "200": {
+                  "description": "OK"
+                  }
+                }  
+              }
+          },
+          "/api/search?name={name}": {
+            "parameters": [
+              {
+                "name": "name",
+                "in": "path",
+                "required": false,
+                "description": "name",
+                "type": "string"
+             }
+            ],
             "get": {
               "tags": [
                 "Search"
@@ -254,7 +276,58 @@
                   }
                 }  
               }
+         },
+         "/api/search?name={name}?developer={developer}": {
+          "parameters": [
+            {
+              "name": "name",
+              "in": "path",
+              "required": false,
+              "description": "name",
+              "type": "string"
+           },
+           {
+            "name": "developer",
+            "in": "path",
+            "required": false,
+            "description": "Game developer",
+            "type": "string"
+          }
+          ],
+          "get": {
+            "tags": [
+              "Search"
+            ],
+            "summary": "Search for video games",
+            "responses": {
+              "200": {
+                "description": "OK"
+                }
+              }  
+            }
+       },
+         "/api/suggestor?name={name}": {
+          "parameters": [
+            {
+              "name": "name",
+              "in": "path",
+              "required": false,
+              "description": "name",
+              "type": "string"
            }
+          ],
+          "get": {
+            "tags": [
+              "Suggestor"
+            ],
+            "summary": "Search for video games",
+            "responses": {
+              "200": {
+                "description": "OK"
+                }
+              }  
+            }
+       }
 
     }
  }

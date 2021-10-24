@@ -36,8 +36,11 @@
     "movies": {
       "type": "text"
     },
-    "name": {
-      "type": "text"
+    "name" : {
+      "type" : "text",
+      "copy_to" : [
+        "suggest"
+      ]
     },
     "negative_ratings": {
       "type": "long"
@@ -72,6 +75,101 @@
     },
     "steamspy_tags": {
       "type": "keyword"
+    },
+    "suggest" : {
+      "type" : "completion",
+      "analyzer" : "simple",
+      "preserve_separators" : true,
+      "preserve_position_increments" : true,
+      "max_input_length" : 50
+    }
+  }
+}
+-----
+{
+  "properties": {
+    "@timestamp": {
+      "type": "date"
+    },
+    "achievements": {
+      "type": "long"
+    },
+    "average_playtime": {
+      "type": "long"
+    },
+    "background": {
+      "type": "keyword"
+    },
+    "categories": {
+      "type": "keyword"
+    },
+    "col0": {
+      "type": "long"
+    },
+    "developer": {
+      "type": "keyword"
+    },
+    "english": {
+      "type": "long"
+    },
+    "genres": {
+      "type": "keyword"
+    },
+    "header_image": {
+      "type": "keyword"
+    },
+    "median_playtime": {
+      "type": "long"
+    },
+    "movies": {
+      "type": "object"
+    },
+    "name" : {
+      "type" : "text",
+      "copy_to" : [
+        "suggest"
+      ]
+    },
+    "negative_ratings": {
+      "type": "long"
+    },
+    "owners": {
+      "type": "keyword"
+    },
+    "platforms": {
+      "type": "keyword"
+    },
+    "positive_ratings": {
+      "type": "long"
+    },
+    "price": {
+      "type": "double"
+    },
+    "publisher": {
+      "type": "keyword"
+    },
+    "release_date": {
+      "type": "date",
+      "format": "iso8601"
+    },
+    "required_age": {
+      "type": "long"
+    },
+    "screenshots": {
+      "type": "object"
+    },
+    "steam_appid": {
+      "type": "long"
+    },
+    "steamspy_tags": {
+      "type": "keyword"
+    },
+    "suggest" : {
+      "type" : "completion",
+      "analyzer" : "simple",
+      "preserve_separators" : true,
+      "preserve_position_increments" : true,
+      "max_input_length" : 50
     }
   }
 }

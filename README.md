@@ -12,4 +12,12 @@
 - Python
 
 
-# Datenhaltung
+# Features
+- Fuzzy Search für normale Suche ohne Parameter
+- Autocomplete
+- Sortierung nach Aufsteigend/Absteigend
+- Suche in Range
+- Aggregation von Entwickler, Publisher, Kategorien, Genre ...
+- Direkte Suche mit Suchkritieren die enthalten sein müssen
+- Pagination
+- Automatische Aktualisierung von Completion Suggestor durch erweitertes Mapping
