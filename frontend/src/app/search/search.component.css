@@ -1,33 +1,14 @@
-@import url('http://fonts.cdnfonts.com/css/new-super-mario-font-u');
-#welcomeBox {
-    margin: 0 auto;
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 5em;
-    transition: 0.5s;
-    font-family: 'New Super Mario Font U', sans-serif;
-    color: #fff;
-    text-shadow: 3px 0 0 #000, 0 -3px 0 #000, 0 3px 0 #000, -3px 0 0 #000;
-}
-
-#searchcontent {
-    width: 100%;
-    text-align: center;
-    padding-top:2vh;
+.searchcontent {
+    background-color: rgb(255, 255, 255, 0.95);
+    height: 100%;
 }
 
 #search {
     margin: 0 auto;
-    display: inline-block;
-}
-
-.searchbutton {
-    margin-left: 20px;
-    bottom: 10px;
-}
-
-.picker {
+    display: flex;
+    flex-direction: column;
     margin-left: 10px;
+    margin-right: 10px;
 }
 
 @keyframes spinner {

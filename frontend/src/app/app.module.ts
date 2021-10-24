@@ -15,7 +15,9 @@ import { GameComponent } from './result/game/game.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatExpansionModule} from '@angular/material/expansion'
+import {MatExpansionModule} from '@angular/material/expansion';
+import { MatSelectSearchModule } from 'mat-select-search';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import {MatExpansionModule} from '@angular/material/expansion'
     FormsModule,
     HttpClientModule,
     MatPaginatorModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSelectSearchModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

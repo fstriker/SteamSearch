@@ -1,6 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Observable, of } from 'rxjs';
 import { BackendService } from '../services/backend.service';
+import { map, mergeMap, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
@@ -21,10 +23,14 @@ export class SearchComponent implements OnInit {
   categorieList: string[] = [];
 
   publisherControl = new FormControl();
+  publisherList: string[] = [];
 
   developerControl = new FormControl();
+  developerList: string[] = [];
 
   nameControl = new FormControl();
+  names: string[] = [];
+  filteredNames: Observable<string[]> = of([]);
 
   loading: boolean = false;
 
@@ -32,11 +38,20 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.backendService.getTags().then((data:any) => {
+    this.backendService.getTags().then((data: any) => {
       this.categorieList = data[0];
+      this.developerList = data[1];
       this.genreList = data[2];
       this.platformList = data[3];
+      this.publisherList = data[4];
     })
+    this.filteredNames = this.nameControl.valueChanges.pipe(
+      mergeMap(value => {
+        return this.backendService.getNameAutoComplete(value).then((nameSuggestions: string[]) => {
+          return nameSuggestions
+        });
+      }
+      ))
   }
 
   search() {
@@ -47,8 +62,9 @@ export class SearchComponent implements OnInit {
         this.genreControl.value,
         this.platformControl.value,
         this.publisherControl.value,
-        this.categoriesControl.value,
-        this.developerControl.value,0)
+        this.developerControl.value,
+        this.categoriesControl.value
+        , 0)
       .then(data => {
         this.loading = false;
         this.searchResultEvent.emit(data)

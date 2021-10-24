@@ -39,6 +39,11 @@ export class BackendService {
     const gameList: Game[] = [];
     for (let index in gameDataArray) {
       let gameData = gameDataArray[index];
+      let allMovieList = Object.keys(gameData.movies).map(key => gameData.movies[key].webm)
+      let movies: string[] = [];
+      for (let index in allMovieList) {
+        movies.push(allMovieList[index]["480"])
+      }
       let game: Game = {
         achievements: gameData.achievements,
         average_playtime: gameData.average_playtime,
@@ -56,7 +61,7 @@ export class BackendService {
         publisher: gameData.publisher,
         required_age: gameData.required_age,
         screenshots: gameData.screenshots,
-        movies: gameData.movies
+        movies: movies
       }
       gameList.push(game);
     }
@@ -86,6 +91,17 @@ export class BackendService {
           return search
         })
   }
+
+  getNameAutoComplete(name: string) {
+    let dictParams: any = {};
+    dictParams["name"] = name;
+    return this.http.get(this.backendUrl + "/api/suggestor", {
+      params: dictParams
+    }).toPromise().then((data: any) => {
+      return Object.keys(data.suggest.Autocomplete[0].options).map(key => data.suggest.Autocomplete[0].options[key]._source.name);
+    })
+  }
 }
+
 
 
