@@ -31,8 +31,8 @@ export class BackendService {
     if (publisher != null && publisher != "") dictParams["publisherTags"] = publisher;
     if (developer != null && developer != "") dictParams["developerTags"] = developer;
     if (categorieTags != null && categorieTags.length > 0) dictParams["categorieTags"] = categorieTags.toString();
-    if (minPrice != null) dictParams["price_start"] = minPrice;
-    if (maxPrice != null) dictParams["price_end"] = maxPrice;
+    if (minPrice != null && minPrice != -1) dictParams["price_start"] = minPrice;
+    if (maxPrice != null && maxPrice != -1) dictParams["price_end"] = maxPrice;
     dictParams["from"] = from;
     return dictParams;
   }

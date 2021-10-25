@@ -46,7 +46,7 @@ export class SearchComponent implements OnInit {
       this.genreList = data[2];
       this.platformList = data[3];
       this.publisherList = data[4];
-      this.genreControl.setValue([this.genreList[Math.floor(Math.random() * this.genreList.length)]]) 
+      this.genreControl.setValue([this.genreList[Math.floor(Math.random() * this.genreList.length)]])
       this.search()
     })
     console.log(this.genreControl.value)
@@ -59,16 +59,25 @@ export class SearchComponent implements OnInit {
       ))
   }
 
-  search() {
-    this.loading = true;
+  calculatePrice() {
     let minPrice, maxPrice: number;
-    if (this.sliderPrice.value == 70) {
+    if (this.sliderPrice.value == 80) {
       minPrice = 60;
       maxPrice = 10000;
-    } else {
-      minPrice = 0;
-      maxPrice = this.sliderPrice.value == undefined ? 0 : this.sliderPrice.value;
+    } else if (this.sliderPrice.value == 0) {
+      minPrice = -1;
+      maxPrice = -1;
     }
+    else {
+      minPrice = 0;
+      maxPrice = this.sliderPrice.value == undefined ? 0 : this.sliderPrice.value - 10;
+    }
+    return [minPrice,maxPrice];
+  }
+
+  search() {
+    this.loading = true;
+    let [minPrice, maxPrice] = this.calculatePrice();
     this.backendService
       .getSearchResult(
         this.nameControl.value,
@@ -88,12 +97,14 @@ export class SearchComponent implements OnInit {
 
   formatLabel(value: number) {
     let label: string = "";
-    if (value == 70) {
+    if (value == 80) {
       label = ">60€";
     } else if (value == 0) {
+      label = "X"
+    } else if (value == 10) {
       label = "Free"
     } else {
-      label = "<" + value + "€";
+      label = "<" + (value - 10) + "€";
     }
     return label;
   }
