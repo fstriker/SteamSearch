@@ -23,8 +23,8 @@ SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
 #INDEX = "steamstoresearch"
-INDEX = "steamgames"
-#INDEX = "steamauto"
+#INDEX = "steamgames"
+INDEX = "steamauto"
 
 
 @app.route('/')
