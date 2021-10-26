@@ -34,11 +34,25 @@ export class SearchComponent implements OnInit {
   names: string[] = [];
   filteredNames: Observable<string[]> = of([]);
 
+  priceLabel: string = "Price";
+  positiveLabel: string = "Positive ratings";
+  negativeLabel: string = "Negative ratings";
+  averageLabel: string = "Average playtime";
+  priceRequestName: string = "price";
+  positiveRequestName: string = "positive_ratings";
+  negativeRequestName: string = "negative_ratings";
+  averageRequestName: string = "average_playtime";
+
   sortControl = new FormControl();
-  sortList: string[] = ["Price", "Positve ratings", "Negative ratings", "Average playtime"];
+  sortList: string[] = [this.priceLabel, this.positiveLabel, this.negativeLabel, this.averageLabel];
+
+  ascLabel: string = "Ascending";
+  desLabel: string = "Descending";
+  ascRequestName: string = "asc";
+  desRequestName: string = "desc";
 
   modeControl = new FormControl();
-  modeList: string[] = ["Ascending","Descending"];
+  modeList: string[] = [this.ascLabel,this.desLabel];
 
   loading: boolean = false;
 
@@ -102,21 +116,21 @@ export class SearchComponent implements OnInit {
   }
   generateSortMode() {
     let mode, sort: string;
-    if (this.sortControl.value == "Price") {
-      sort = "price";
-    } else if (this.sortControl.value == "Positve ratings") {
-      sort = "positive_ratings";
-    } else if (this.sortControl.value == "Negative ratings") {
-      sort = "negative_ratings";
-    } else if (this.sortControl.value == "Average playtime") {
-      sort = "average_playtime";
+    if (this.sortControl.value == this.priceLabel) {
+      sort = this.priceRequestName;
+    } else if (this.sortControl.value == this.positiveLabel) {
+      sort = this.positiveRequestName;
+    } else if (this.sortControl.value == this.negativeLabel) {
+      sort = this.negativeRequestName
+    } else if (this.sortControl.value == this.averageLabel) {
+      sort = this.averageRequestName
     } else {
       sort = "";
     }
-    if (this.modeControl.value == "Descending") {
-      mode = "desc";
-    } else if (this.modeControl.value == "Ascending") {
-      mode = "asc";
+    if (this.modeControl.value == this.desLabel) {
+      mode = this.desRequestName;
+    } else if (this.modeControl.value == this.ascLabel) {
+      mode = this.ascRequestName;
     } else {
       mode = "";
     }
