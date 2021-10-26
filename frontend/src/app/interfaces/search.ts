@@ -12,4 +12,6 @@ export interface Search {
     lastFrom: number;
     minPrice: number;
     maxPrice: number;
+    sort: string;
+    mode: string;
 }

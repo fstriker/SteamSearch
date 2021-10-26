@@ -19,14 +19,18 @@
 }
 
 .row {
+    flex: 1;
     text-align: left;
     display: flex;
     flex-direction: column;
     white-space: initial;
-    width: 15vw;
     font-size: 1.2em;
 }
 
-.space {
-    margin-left: 2.5vw;
+.info {
+    margin-bottom: 10px;
+}
+
+.video {
+    margin-bottom: 15px;
 }

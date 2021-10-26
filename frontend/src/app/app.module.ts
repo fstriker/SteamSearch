@@ -42,7 +42,7 @@ import {MatSliderModule} from '@angular/material/slider';
     MatExpansionModule,
     MatSelectSearchModule,
     MatAutocompleteModule,
-    MatSliderModule
+    MatSliderModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -34,6 +34,12 @@ export class SearchComponent implements OnInit {
   names: string[] = [];
   filteredNames: Observable<string[]> = of([]);
 
+  sortControl = new FormControl();
+  sortList: string[] = ["Price", "Positve ratings", "Negative ratings", "Average playtime"];
+
+  modeControl = new FormControl();
+  modeList: string[] = ["Ascending","Descending"];
+
   loading: boolean = false;
 
   constructor(public backendService: BackendService) {
@@ -49,7 +55,6 @@ export class SearchComponent implements OnInit {
       this.genreControl.setValue([this.genreList[Math.floor(Math.random() * this.genreList.length)]])
       this.search()
     })
-    console.log(this.genreControl.value)
     this.filteredNames = this.nameControl.valueChanges.pipe(
       mergeMap(value => {
         return this.backendService.getNameAutoComplete(value).then((nameSuggestions: string[]) => {
@@ -78,6 +83,7 @@ export class SearchComponent implements OnInit {
   search() {
     this.loading = true;
     let [minPrice, maxPrice] = this.calculatePrice();
+    let [sort, mode] = this.generateSortMode()
     this.backendService
       .getSearchResult(
         this.nameControl.value,
@@ -86,13 +92,35 @@ export class SearchComponent implements OnInit {
         this.publisherControl.value,
         this.developerControl.value,
         this.categoriesControl.value
-        , 0, minPrice, maxPrice)
+        , 0, minPrice, maxPrice, sort, mode)
       .then(data => {
         this.loading = false;
         this.searchResultEvent.emit(data)
       }).catch(error => {
         this.loading = false;
       })
+  }
+  generateSortMode() {
+    let mode, sort: string;
+    if (this.sortControl.value == "Price") {
+      sort = "price";
+    } else if (this.sortControl.value == "Positve ratings") {
+      sort = "positive_ratings";
+    } else if (this.sortControl.value == "Negative ratings") {
+      sort = "negative_ratings";
+    } else if (this.sortControl.value == "Average playtime") {
+      sort = "average_playtime";
+    } else {
+      sort = "";
+    }
+    if (this.modeControl.value == "Descending") {
+      mode = "desc";
+    } else if (this.modeControl.value == "Ascending") {
+      mode = "asc";
+    } else {
+      mode = "";
+    }
+    return [sort, mode]
   }
 
   formatLabel(value: number) {

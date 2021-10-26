@@ -18,7 +18,7 @@
     <mat-form-field class="picker" appearance="fill">
       <mat-label>Publisher</mat-label>
       <mat-select [formControl]="publisherControl">
-        <mat-option><i>Deselect selection</i></mat-option>
+        <mat-option>--  <i>Deselect selection</i> --</mat-option>
         <mat-option
           *ngFor="let publisher of publisherList"
           [value]="publisher"
@@ -30,7 +30,7 @@
     <mat-form-field class="picker" appearance="fill">
       <mat-label>Developer</mat-label>
       <mat-select [formControl]="developerControl">
-        <mat-option><i>Deselect selection</i></mat-option>
+        <mat-option>--  <i>Deselect selection</i> --</mat-option>
         <mat-option
           *ngFor="let developer of developerList"
           [value]="developer"
@@ -80,6 +80,30 @@
       max="80"
       aria-label="units"
     ></mat-slider>
+
+    <mat-form-field class="picker" appearance="fill">
+      <mat-label>Sort by</mat-label>
+      <mat-select [formControl]="sortControl">
+        <mat-option>--  <i>Deselect selection</i> --</mat-option>
+        <mat-option
+          *ngFor="let sort of sortList"
+          [value]="sort"
+          >{{ sort }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="picker" appearance="fill">
+      <mat-label>Select sort mode</mat-label>
+      <mat-select [formControl]="modeControl">
+        <mat-option>--  <i>Deselect selection</i> --</mat-option>
+        <mat-option
+          *ngFor="let mode of modeList"
+          [value]="mode"
+          >{{ mode }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
 
     <button
       class="searchbutton"

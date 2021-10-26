@@ -1,7 +1,4 @@
-<mat-expansion-panel
-  (opened)="panelOpenState = true"
-  (closed)="panelOpenState = false"
->
+<mat-expansion-panel (closed)="pauseVideo($event)">
   <mat-expansion-panel-header class="header">
     <mat-panel-description>
       <img class="header_img" [src]="game.header_img" />
@@ -12,31 +9,40 @@
   </mat-expansion-panel-header>
   <div *ngIf="game.movies.length > 0">
     <div class="video">
-      <video controls (click)="toggleVideo($event)" #videoPlayer>
+      <video controls (click)="playVideo($event)" #videoPlayer>
         <source src="{{ game.movies[0] }}" type="video/mp4" />
         Browser not supported
       </video>
     </div>
-    <div class="column">
-      <div class="row">
-        <span><b>Date:</b> {{ game.date }}</span>
-        <span><b>Publisher:</b> {{ game.publisher }}</span>
-        <span><b>Developer:</b> {{ game.developer }}</span>
-        <span><b>Platform:</b> {{ game.platform }}</span>
-        <span><b>Owners:</b> {{ game.owners }}</span>
-      </div>
-      <div class="row space">
-        <span><b>Genre:</b> {{ game.genre }}</span>
-        <span><b>Categorie:</b> {{ game.categories }}</span>
-        <span><b>Achievements:</b> {{ game.achievements }}</span>
-        <span><b>Required age:</b> {{ game.required_age }}</span>
-      </div>
-      <div class="row space">
-        <span><b>Average playtime:</b> {{ game.average_playtime }}</span>
-        <span><b>Median playtime:</b> {{ game.median_playtime }}}</span>
-        <span><b>Positive ratings:</b> {{ game.positive_ratings }}</span>
-        <span><b>Negative ratings:</b> {{ game.negative_ratings }}</span>
-      </div>
+  </div>
+  <div class="column">
+    <div class="row">
+      <span class="info"><b>Date:</b> {{ game.date }}</span>
+      <span class="info"><b>Publisher:</b> {{ game.publisher }}</span>
+      <span class="info"><b>Developer:</b> {{ game.developer }}</span>
+      <span class="info"><b>Platform:</b> {{ game.platform }}</span>
+      <span class="info"><b>Owners:</b> {{ game.owners }}</span>
+    </div>
+    <div class="row">
+      <span class="info"><b>Genre:</b> {{ game.genre }}</span>
+      <span class="info"><b>Categorie:</b> {{ game.categories }}</span>
+      <span class="info"><b>Achievements:</b> {{ game.achievements }}</span>
+      <span class="info"><b>Required age:</b> {{ game.required_age }}</span>
+      <span class="info"><b>Price:</b> {{ game.price }}€</span>
+    </div>
+    <div class="row">
+      <span class="info"
+        ><b>Average playtime:</b> {{ game.average_playtime }}h</span
+      >
+      <span class="info"
+        ><b>Median playtime:</b> {{ game.median_playtime }}h</span
+      >
+      <span class="info"
+        ><b>Positive ratings:</b> {{ game.positive_ratings }}</span
+      >
+      <span class="info"
+        ><b>Negative ratings:</b> {{ game.negative_ratings }}</span
+      >
     </div>
   </div>
 </mat-expansion-panel>

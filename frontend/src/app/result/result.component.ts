@@ -37,7 +37,9 @@ export class ResultComponent implements OnInit {
       this.searchResult.categories,
       startIndex,
       this.searchResult.minPrice,
-      this.searchResult.maxPrice).then((data: Search) => {
+      this.searchResult.maxPrice,
+       this.searchResult.sort,
+        this.searchResult.mode).then((data: Search) => {
         this.searchResult = data;
         this.searchSlice = data.games;
       })

@@ -7,13 +7,14 @@ export interface Game {
     genre: string;
     categories: string;
     header_img: string;
-    achievements: number;
-    average_playtime: number;
-    median_playtime: number;
-    negative_ratings: number;
+    achievements: string;
+    average_playtime: string;
+    median_playtime: string;
+    negative_ratings: string;
     owners: string;
-    positive_ratings: number;
-    required_age: number;
+    positive_ratings: string;
+    required_age: string;
     screenshots: string[];
     movies: string[];
+    price: string;
 }

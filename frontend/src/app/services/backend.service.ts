@@ -23,7 +23,7 @@ export class BackendService {
     })
   }
 
-  buildSearchParams(name: string, genreTags: string[], platformTags: string[], publisher: string, developer: string, categorieTags: string[], from: number, minPrice: number, maxPrice: number) {
+  buildSearchParams(name: string, genreTags: string[], platformTags: string[], publisher: string, developer: string, categorieTags: string[], from: number, minPrice: number, maxPrice: number, sort: string, mode: string) {
     let dictParams: any = {};
     if (name != null && name != "") dictParams["name"] = name;
     if (genreTags != undefined && genreTags.length > 0) dictParams["genreTags"] = genreTags.toString();
@@ -33,6 +33,8 @@ export class BackendService {
     if (categorieTags != null && categorieTags.length > 0) dictParams["categorieTags"] = categorieTags.toString();
     if (minPrice != null && minPrice != -1) dictParams["price_start"] = minPrice;
     if (maxPrice != null && maxPrice != -1) dictParams["price_end"] = maxPrice;
+    if (sort != null && sort != "") dictParams["sort"] = sort;
+    if (mode != null && sort != "") dictParams["mode"] = mode;
     dictParams["from"] = from;
     return dictParams;
   }
@@ -46,6 +48,7 @@ export class BackendService {
       for (let index in allMovieList) {
         movies.push(allMovieList[index]["480"])
       }
+      let allScreenshotList = Object.keys(gameData.screenshots).map(key => gameData.screenshots[key].path_full)
       let game: Game = {
         achievements: gameData.achievements,
         average_playtime: gameData.average_playtime,
@@ -62,16 +65,17 @@ export class BackendService {
         positive_ratings: gameData.positive_ratings,
         publisher: gameData.publisher,
         required_age: gameData.required_age,
-        screenshots: gameData.screenshots,
-        movies: movies
+        screenshots: allScreenshotList,
+        movies: movies,
+        price: gameData.price
       }
       gameList.push(game);
     }
     return gameList;
   }
 
-  getSearchResult(name: string, genreTags: string[], platformTags: string[], publisher: string, developer: string, categorieTags: string[], from: number, minPrice: number, maxPrice: number) {
-    let dictParams: any = this.buildSearchParams(name, genreTags, platformTags, publisher, developer, categorieTags, from, minPrice, maxPrice);
+  getSearchResult(name: string, genreTags: string[], platformTags: string[], publisher: string, developer: string, categorieTags: string[], from: number, minPrice: number, maxPrice: number, sort: string, mode: string) {
+    let dictParams: any = this.buildSearchParams(name, genreTags, platformTags, publisher, developer, categorieTags, from, minPrice, maxPrice, sort, mode);
     return this.http
       .get(this.backendUrl + "/api/search",
         {
@@ -90,7 +94,9 @@ export class BackendService {
             totalHits: data.hits.total.value,
             lastFrom: from,
             minPrice: minPrice,
-            maxPrice: maxPrice
+            maxPrice: maxPrice,
+            sort: sort,
+            mode: mode
           }
           return search
         })
@@ -102,6 +108,7 @@ export class BackendService {
     return this.http.get(this.backendUrl + "/api/suggestor", {
       params: dictParams
     }).toPromise().then((data: any) => {
+      console.log(data)
       return Object.keys(data.suggest.Autocomplete[0].options).map(key => data.suggest.Autocomplete[0].options[key]._source.name);
     })
   }

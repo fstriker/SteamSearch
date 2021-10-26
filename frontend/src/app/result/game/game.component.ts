@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { NgImageSliderComponent } from 'ng-image-video-gallery';
 import { Game } from 'src/app/interfaces/game';
 
 @Component({
@@ -8,10 +9,9 @@ import { Game } from 'src/app/interfaces/game';
 })
 export class GameComponent implements OnInit {
 
-  public panelOpenState: boolean = false;
-
   @ViewChild('videoPlayer')
   videoplayer!: ElementRef;
+  public panelOpenState: boolean = false;
   @Input() game!: Game;
 
   constructor() { }
@@ -19,8 +19,12 @@ export class GameComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  toggleVideo(event: any) {
-      this.videoplayer.nativeElement.play();
+  playVideo(event: any) {
+    this.videoplayer.nativeElement.play();
+  }
+
+  pauseVideo(event: any) {
+    this.videoplayer.nativeElement.pause();
   }
 
 }
