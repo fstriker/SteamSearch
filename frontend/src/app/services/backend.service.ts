@@ -108,7 +108,6 @@ export class BackendService {
     return this.http.get(this.backendUrl + "/api/suggestor", {
       params: dictParams
     }).toPromise().then((data: any) => {
-      console.log(data)
       return Object.keys(data.suggest.Autocomplete[0].options).map(key => data.suggest.Autocomplete[0].options[key]._source.name);
     })
   }
