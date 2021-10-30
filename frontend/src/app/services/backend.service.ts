@@ -8,7 +8,7 @@ import { Search } from '../interfaces/search';
 })
 export class BackendService {
 
-  backendUrl: string = "http://3.226.139.22:5000";
+  backendUrl: string = "http://3.225.169.149:5000";
 
   constructor(private http: HttpClient) { }
 
