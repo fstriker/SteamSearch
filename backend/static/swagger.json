@@ -37,19 +37,19 @@
           }
         }
      },
-      "/api/getTest": {
-        "get": {
-          "tags": [
-            "Test Tags"
-          ],
-          "summary": "Test to check connection",
-          "responses": {
-            "200": {
-              "description": "OK"
-            }
+     "/": {
+      "get": {
+        "tags": [
+          "Status"
+        ],
+        "summary": "Return server status",
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
-     },
+      }
+   },
      "/api/search?size={size}&from={from}&developer={developer}&name={name}&platforms={platforms}&genres={genres}&publisher={publisher}&categories={categories}": {
         "parameters": [
           {
@@ -196,7 +196,7 @@
           "/api/search": {
             "get": {
               "tags": [
-                "Search"
+                "Search All"
               ],
               "summary": "Search for video games",
               "responses": {
@@ -394,6 +394,5 @@
                 }  
               }
             }
-
     }
- }
+}

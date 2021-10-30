@@ -39,10 +39,10 @@ def get_field_distinct():
           "min":{
             "field": "price" 
           }
-       },
-       "max_price":{
-         "max":{
-           "field":"price"
+        },
+         "max_price":{
+           "max":{
+            "field":"price"
          }
        }
     }
@@ -57,11 +57,11 @@ def get_field_distinct():
 # Auto Complete
 # Einfache Lösung in Form von geringen Aufwand (Eventuell schlechte Ergebnisse und langsam) - https://www.elastic.co/guide/en/elasticsearch/reference/7.2/search-as-you-type.html
 # Completion Suggester (Aufwendig, aber schnell) - https://www.elastic.co/guide/en/elasticsearch/reference/6.8/search-suggesters-completion.html
-    
-def build_Query(es_client,index, args):
+#-------------------------------
+
+def build_Query(es_client,index, args, isFuzzy):
   query = Search(using=es_client, index=index)
-  
-  print(f"Get args: {args}")
+
   name = args.get('name')
   developer = args.get('developerTags')
   publisher = args.get('publisherTags')
@@ -88,52 +88,38 @@ def build_Query(es_client,index, args):
     platforms_list = platforms.split(',')
     for platform in platforms_list:
       query = query.query(Q('bool',must=[Q('match',platforms=platform)]))
-    #query = query.filter('terms', platforms=platforms_list)
     
   if genres is not None:
     print("genres")
     genres_list = genres.split(',')
     for genre in genres_list:
       query = query.query(Q('bool',must=[Q('match',genres=genre)]))
-    #query = query.filter('terms', genres=genres_list)
   
   if categories is not None:
     print("categories")
     categories_list = categories.split(',')
     for category in categories_list:
       query = query.query(Q('bool',must=[Q('match',categories=category)]))
-    #query = query.filter('terms', categories=categories_list)
     
   if price_start is not None and price_end is not None:
     print("price")
     query = query.filter('range', price={'gte':price_start, 'lte':price_end})
-    
-  if name is not None:
-    print("name")
-    query = query.query('match', name=name)
-   
+  
+  if isFuzzy == False:
+    if name is not None:
+      print("name")
+      query = query.query('match', name=name)
+  else:
+      query = query.query(Q({"match": {
+              "name": {
+                "query": name,
+                "prefix_length": 2,
+                "fuzziness": "AUTO",
+                "max_expansions": 6
+              }
+      }}))
+      
   if sort is not None and mode is not None:
-    print("sort")
     query = query.sort({sort: {'order': mode}})
-  print(query.to_dict())
   return query
   
-def build_fuzzy_query(name):
-  query = {
-    "fuzzy": {
-      "name": {
-        "value": name,
-        "fuzziness": "AUTO"
-      }
-    }
-  }
-  return query
-
-
-# Fuzzy Search for specific term
-# GET /vgsales/_search
-# {
-#   "query": {
-#     
-#   }
-# }

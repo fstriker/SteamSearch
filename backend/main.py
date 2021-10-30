@@ -1,5 +1,5 @@
 import sys
-from api.query import build_Query, get_field_distinct, build_fuzzy_query
+from api.query import build_Query, get_field_distinct
 from flask import Flask, request
 from elasticsearch import Elasticsearch
 from flask_swagger_ui import get_swaggerui_blueprint
@@ -22,18 +22,13 @@ SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
 )
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
-#INDEX = "steamstoresearch"
-#INDEX = "steamgames"
 INDEX = "steamauto"
-
 
 @app.route('/')
 def index():
     result = es_client.info()
     return result
-    
-    
-# Textfields cant be aggregated
+        
 @app.route('/api/getTags', methods=['GET'])
 def getPlatTags():
     generated_query = get_field_distinct()
@@ -42,15 +37,9 @@ def getPlatTags():
     
 @app.route('/api/search', methods=['GET'])
 def getSearchRequest():
+    #print ("Init")
+    #print(f"Args:{request.args}")
     print(f"Anzahl Args:{len(request.args)}")
-    #Fuzzy
-    if len(request.args) == 2:
-        for arg in request.args:
-            if arg == 'name':
-                print('fuzzy')
-                generated_query = build_fuzzy_query(request.args[arg])
-                result = es_client.search(index=INDEX,query=generated_query)
-                return result
     #request_size
     start = request.args.get("from")
     if start is None:
@@ -60,9 +49,19 @@ def getSearchRequest():
     end = start + 15  
     
     #Query
-    generated_query = build_Query(es_client, INDEX, request.args)
+    generated_query = build_Query(es_client, INDEX, request.args,False)
+    #print("Generated")
     generated_query = generated_query[start:end]
+    #print("Size")
     es_response = generated_query.execute()
+    
+    if es_response.hits.total.value == 0:
+        print("FUZZY")
+        generated_query = build_Query(es_client, INDEX, request.args,True)
+        generated_query = generated_query[start:end]
+        es_response = generated_query.execute()
+        return es_response.to_dict()
+ 
     return es_response.to_dict()
 
 @app.route('/api/all', methods=['GET'])
