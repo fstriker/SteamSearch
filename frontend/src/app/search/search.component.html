@@ -18,9 +18,10 @@
     <mat-form-field class="picker" appearance="fill">
       <mat-label>Publisher</mat-label>
       <mat-select [formControl]="publisherControl">
+        <input style="height:40px; width: 90%; border: 0px;" placeholder="Search..." (keyup)="onPublisherKey($event)">
         <mat-option>--  <i>Deselect selection</i> --</mat-option>
         <mat-option
-          *ngFor="let publisher of publisherList"
+          *ngFor="let publisher of selectedPublisherList"
           [value]="publisher"
           >{{ publisher }}</mat-option
         >
@@ -30,9 +31,10 @@
     <mat-form-field class="picker" appearance="fill">
       <mat-label>Developer</mat-label>
       <mat-select [formControl]="developerControl">
+        <input style="height:40px; width: 90%; border: 0px;" placeholder="Search..." (keyup)="onDeveloperKey($event)">
         <mat-option>--  <i>Deselect selection</i> --</mat-option>
         <mat-option
-          *ngFor="let developer of developerList"
+          *ngFor="let developer of selectedDeveloperList"
           [value]="developer"
           >{{ developer }}</mat-option
         >

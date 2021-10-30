@@ -26,9 +26,11 @@ export class SearchComponent implements OnInit {
 
   publisherControl = new FormControl();
   publisherList: string[] = [];
+  selectedPublisherList: string[] = [];
 
   developerControl = new FormControl();
   developerList: string[] = [];
+  selectedDeveloperList: string[] = [];
 
   nameControl = new FormControl();
   names: string[] = [];
@@ -66,6 +68,8 @@ export class SearchComponent implements OnInit {
       this.genreList = data[2];
       this.platformList = data[3];
       this.publisherList = data[4];
+      this.selectedPublisherList = this.publisherList;
+      this.selectedDeveloperList = this.developerList;
       this.genreControl.setValue([this.genreList[Math.floor(Math.random() * this.genreList.length)]])
       this.search()
     })
@@ -151,4 +155,21 @@ export class SearchComponent implements OnInit {
     return label;
   }
 
+  onPublisherKey(value:any) {
+    this.selectedPublisherList = this.searchPublisher(value.target.value)
+  }
+
+  searchPublisher(value: string) { 
+    let filter = value.toLowerCase();
+    return this.publisherList.filter(option => option.toLowerCase().startsWith(filter));
+  }
+
+  onDeveloperKey(value:any) {
+    this.selectedDeveloperList = this.searchDeveloper(value.target.value)
+  }
+
+  searchDeveloper(value: string) { 
+    let filter = value.toLowerCase();
+    return this.developerList.filter(option => option.toLowerCase().startsWith(filter));
+  }
 }
